@@ -19,10 +19,15 @@ class _HomeScreenState extends State<HomeScreen> {
           onChanged: (bool value) {
             setState(() => themeState.setDarkTheme = value);
           },
-          title: const Text('Theme'),
-          secondary: Icon(themeState.getDarkTheme
-              ? Icons.dark_mode_outlined
-              : Icons.light_mode_outlined),
+          title: Text(
+            themeState.getDarkTheme ? 'Dark' : 'Light',
+          ),
+          secondary: Icon(
+            themeState.getDarkTheme
+                ? Icons.dark_mode_outlined
+                : Icons.light_mode_outlined,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
           value: themeState.getDarkTheme,
         ),
       ),

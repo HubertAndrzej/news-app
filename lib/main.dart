@@ -47,6 +47,7 @@ class _MyAppState extends State<MyApp> {
           title: 'News App',
           theme: Styles.themeData(themeProvider.getDarkTheme, context),
           home: const HomeScreen(),
+          routes: const {},
         );
       }),
     );
