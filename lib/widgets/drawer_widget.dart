@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/providers/dark_theme_provider.dart';
-import 'package:news_app/widgets/custom_list_tile.dart';
-import 'package:news_app/widgets/vertical_spacing.dart';
+import 'package:news_app/widgets/list_tile_widget.dart';
+import 'package:news_app/widgets/vertical_spacing_widget.dart';
 import 'package:provider/provider.dart';
 
 class DrawerWidget extends StatefulWidget {
@@ -33,25 +34,33 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                       width: 60,
                     ),
                   ),
-                  const VerticalSpacing(height: 20),
-                  const Flexible(
-                    child: Text('News App'),
+                  const VerticalSpacingWidget(height: 20),
+                  Flexible(
+                    child: Text(
+                      'News App',
+                      style: GoogleFonts.lobster(
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          letterSpacing: 0.6,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            const VerticalSpacing(height: 20),
-            CustomListTile(
+            const VerticalSpacingWidget(height: 20),
+            ListTileWidget(
               function: () {},
               icon: IconlyBold.home,
               label: "Home",
             ),
-            CustomListTile(
+            ListTileWidget(
               function: () {},
               icon: IconlyBold.bookmark,
               label: "Bookmark",
             ),
-            const Divider(),
+            const Divider(thickness: 2),
             SwitchListTile(
               onChanged: (bool value) {
                 setState(() => themeProvider.setDarkTheme = value);

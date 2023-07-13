@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class VerticalSpacing extends StatelessWidget {
-  const VerticalSpacing({
+class VerticalSpacingWidget extends StatelessWidget {
+  const VerticalSpacingWidget({
     super.key,
     required this.height,
   });
