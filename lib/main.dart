@@ -40,16 +40,17 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => themeChangeProvider),
       ],
-      child:
-          Consumer<DarkThemeProvider>(builder: (context, themeProvider, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'News App',
-          theme: Styles.themeData(themeProvider.getDarkTheme, context),
-          home: const HomeScreen(),
-          routes: const {},
-        );
-      }),
+      child: Consumer<DarkThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'News App',
+            theme: Styles.themeData(themeProvider.getDarkTheme, context),
+            home: const HomeScreen(),
+            routes: const {},
+          );
+        },
+      ),
     );
   }
 }
