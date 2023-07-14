@@ -62,10 +62,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                 Navigator.push(
                   context,
                   PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: const BookmarksScreen(),
-                      inheritTheme: true,
-                      ctx: context),
+                    type: PageTransitionType.rightToLeft,
+                    child: const BookmarksScreen(),
+                    inheritTheme: true,
+                    ctx: context,
+                  ),
                 );
               },
               icon: IconlyBold.bookmark,

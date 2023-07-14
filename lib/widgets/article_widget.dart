@@ -1,9 +1,11 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/constants/variables.dart';
+import 'package:news_app/screens/news_details_screen.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/horizontal_spacing_widget.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ArticleWidget extends StatelessWidget {
   const ArticleWidget({super.key});
@@ -73,7 +75,17 @@ class ArticleWidget extends StatelessWidget {
                             child: Row(
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: const NewsDetailsScreen(),
+                                        inheritTheme: true,
+                                        ctx: context,
+                                      ),
+                                    );
+                                  },
                                   icon: const Icon(
                                     Icons.link,
                                     color: Colors.blue,
