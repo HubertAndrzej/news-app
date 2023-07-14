@@ -5,7 +5,9 @@ import 'package:news_app/constants/variables.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/drawer_widget.dart';
 import 'package:news_app/widgets/horizontal_spacing_widget.dart';
+import 'package:news_app/widgets/pagination_button_widget.dart';
 import 'package:news_app/widgets/tab_widget.dart';
+import 'package:news_app/widgets/vertical_spacing_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +18,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   var newsType = NewsType.allNews;
+  int currentPageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context: context).getColor;
@@ -44,11 +48,11 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         drawer: const DrawerWidget(),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
                 children: [
                   TabWidget(
                     color: newsType == NewsType.allNews
@@ -75,8 +79,62 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-            ),
-          ],
+              const VerticalSpacingWidget(height: 10),
+              newsType == NewsType.topTrending
+                  ? Container()
+                  : SizedBox(
+                      height: kBottomNavigationBarHeight,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          PaginationButtonWidget(
+                            text: 'Prev',
+                            function: () {
+                              if (currentPageIndex == 0) return;
+                              setState(() => currentPageIndex--);
+                            },
+                          ),
+                          Flexible(
+                            flex: 2,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 5,
+                              itemBuilder: (ctx, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Material(
+                                    color: currentPageIndex == index
+                                        ? Colors.blue
+                                        : Theme.of(context).cardColor,
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(
+                                            () => currentPageIndex = index);
+                                      },
+                                      child: Center(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text('${index + 1}'),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          PaginationButtonWidget(
+                            text: 'Next',
+                            function: () {
+                              if (currentPageIndex == 4) return;
+                              setState(() => currentPageIndex++);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+            ],
+          ),
         ),
       ),
     );
