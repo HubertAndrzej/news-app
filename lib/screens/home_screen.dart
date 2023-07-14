@@ -1,13 +1,15 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/constants/variables.dart';
 import 'package:news_app/services/utils.dart';
+import 'package:news_app/widgets/article_widget.dart';
 import 'package:news_app/widgets/drawer_widget.dart';
 import 'package:news_app/widgets/horizontal_spacing_widget.dart';
-import 'package:news_app/widgets/loading_widget.dart';
 import 'package:news_app/widgets/pagination_button_widget.dart';
 import 'package:news_app/widgets/tab_widget.dart';
+import 'package:news_app/widgets/top_trending_widget.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,6 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final Color color = Utils(context: context).getColor;
+    final Size size = Utils(context: context).getScreenSize;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -155,7 +159,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-              const LoadingWidget(),
+              if (newsType == NewsType.allNews)
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: 20,
+                    itemBuilder: (ctx, index) => const ArticleWidget(),
+                  ),
+                ),
+              if (newsType == NewsType.topTrending)
+                SizedBox(
+                  height: size.height * 0.6,
+                  child: Swiper(
+                    autoplay: true,
+                    autoplayDelay: 8000,
+                    itemWidth: size.width * 0.9,
+                    layout: SwiperLayout.STACK,
+                    viewportFraction: 0.9,
+                    itemCount: 5,
+                    itemBuilder: (ctx, index) => const TopTrendingWidget(),
+                  ),
+                ),
             ],
           ),
         ),
