@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:news_app/constants/variables.dart';
 import 'package:news_app/services/utils.dart';
+import 'package:news_app/widgets/vertical_spacing_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -33,7 +36,7 @@ class _SearchScreenState extends State<SearchScreen> {
           body: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Row(
                   children: [
                     GestureDetector(
@@ -53,7 +56,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         keyboardType: TextInputType.text,
                         onEditingComplete: () {},
                         decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.only(bottom: 1.6),
+                          contentPadding: const EdgeInsets.only(bottom: 2),
                           hintText: 'Search...',
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -76,6 +79,35 @@ class _SearchScreenState extends State<SearchScreen> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              const VerticalSpacingWidget(height: 10),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: MasonryGridView.count(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: 4,
+                    crossAxisSpacing: 4,
+                    itemCount: searchKeywords.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        child: Container(
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: color),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              searchKeywords[index],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

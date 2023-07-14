@@ -20,7 +20,7 @@ class TopTrendingShimmerEffectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(12),
       child: Container(
         height: size.height * 0.45,
         decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class TopTrendingShimmerEffectWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Container(
                   width: double.infinity,
                   height: size.height * 0.06,
@@ -56,7 +56,7 @@ class TopTrendingShimmerEffectWidget extends StatelessWidget {
               Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16),
                   child: Container(
                     height: size.height * 0.025,
                     width: size.width * 0.4,

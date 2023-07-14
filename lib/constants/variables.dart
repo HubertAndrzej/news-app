@@ -52,3 +52,16 @@ List<DropdownMenuItem<String>> get dropDownItems {
 }
 
 TextStyle smallTextStyle = GoogleFonts.montserrat(fontSize: 15);
+
+const List<String> searchKeywords = [
+  'Chess',
+  'Crypto',
+  'Flutter',
+  'Football',
+  'Italy',
+  'Nature',
+  'Piano',
+  'Poland',
+  'Season',
+  'Software',
+];

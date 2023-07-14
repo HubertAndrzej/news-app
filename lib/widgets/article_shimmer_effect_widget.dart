@@ -22,7 +22,7 @@ class ArticleShimmerEffectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Material(
         color: Theme.of(context).cardColor,
         child: Stack(

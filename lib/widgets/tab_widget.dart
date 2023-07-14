@@ -24,7 +24,7 @@ class TabWidget extends StatelessWidget {
           color: color,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Text(
             text,
             style: TextStyle(

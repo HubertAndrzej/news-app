@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         drawer: const DrawerWidget(),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8),
           child: Column(
             children: [
               Row(
@@ -118,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: 5,
                               itemBuilder: (ctx, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8),
                                   child: Material(
                                     color: currentPageIndex == index
                                         ? Colors.blue
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       },
                                       child: Center(
                                         child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8),
                                           child: Text('${index + 1}'),
                                         ),
                                       ),

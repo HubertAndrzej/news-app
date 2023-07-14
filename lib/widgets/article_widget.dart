@@ -13,7 +13,7 @@ class ArticleWidget extends StatelessWidget {
     Size size = Utils(context: context).getScreenSize;
 
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Material(
         color: Theme.of(context).cardColor,
         child: InkWell(
