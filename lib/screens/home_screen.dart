@@ -5,6 +5,7 @@ import 'package:news_app/constants/variables.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/drawer_widget.dart';
 import 'package:news_app/widgets/horizontal_spacing_widget.dart';
+import 'package:news_app/widgets/loading_widget.dart';
 import 'package:news_app/widgets/pagination_button_widget.dart';
 import 'package:news_app/widgets/tab_widget.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
@@ -144,6 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: DropdownButton(
+                            dropdownColor: Theme.of(context).cardColor,
                             onChanged: (String? value) {
                               setState(() => sortBy = value!);
                             },
@@ -153,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
+              const LoadingWidget(),
             ],
           ),
         ),

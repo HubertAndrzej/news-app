@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'global_colors.dart';
+import 'package:news_app/constants/global_colors.dart';
 
 class Styles {
   static ThemeData themeData(bool isDarkTheme, BuildContext context) {
