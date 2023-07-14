@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/constants/variables.dart';
+import 'package:news_app/screens/search_screen.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/article_widget.dart';
 import 'package:news_app/widgets/drawer_widget.dart';
@@ -11,6 +12,7 @@ import 'package:news_app/widgets/pagination_button_widget.dart';
 import 'package:news_app/widgets/tab_widget.dart';
 import 'package:news_app/widgets/top_trending_widget.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,9 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: const SearchScreen(),
+                      inheritTheme: true,
+                      ctx: context),
+                );
+              },
               icon: const Icon(IconlyLight.search),
-            )
+            ),
           ],
         ),
         drawer: const DrawerWidget(),
