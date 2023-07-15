@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:news_app/constants/api_constants.dart';
@@ -25,7 +26,7 @@ class NewsApiServices {
       Map data = jsonDecode(response.body);
       List newsTempList = [];
       if (data['code'] != null) {
-        throw data['message'];
+        throw HttpException(data['code']);
       }
       for (var value in data['articles']) {
         newsTempList.add(value);
