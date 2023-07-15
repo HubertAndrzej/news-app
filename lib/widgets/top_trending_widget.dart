@@ -1,7 +1,10 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:news_app/screens/blog_details_screen.dart';
+import 'package:news_app/screens/news_details_screen.dart';
 import 'package:news_app/services/utils.dart';
+import 'package:page_transition/page_transition.dart';
 
 class TopTrendingWidget extends StatelessWidget {
   const TopTrendingWidget({super.key});
@@ -17,7 +20,10 @@ class TopTrendingWidget extends StatelessWidget {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(
+            context,
+            BlogDetailsScreen.routeName,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -45,7 +51,15 @@ class TopTrendingWidget extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () => Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        child: const NewsDetailsScreen(),
+                        inheritTheme: true,
+                        ctx: context,
+                      ),
+                    ),
                     icon: Icon(
                       Icons.link,
                       color: color,

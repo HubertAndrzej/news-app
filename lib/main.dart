@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_app/constants/theme_data.dart';
 import 'package:news_app/providers/dark_theme_provider.dart';
+import 'package:news_app/screens/blog_details_screen.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -47,7 +48,9 @@ class _MyAppState extends State<MyApp> {
             title: 'News App',
             theme: Styles.themeData(themeProvider.getDarkTheme, context),
             home: const HomeScreen(),
-            routes: const {},
+            routes: {
+              BlogDetailsScreen.routeName: (ctx) => const BlogDetailsScreen(),
+            },
           );
         },
       ),

@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/constants/variables.dart';
+import 'package:news_app/constants/styles.dart';
+import 'package:news_app/screens/blog_details_screen.dart';
 import 'package:news_app/screens/news_details_screen.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/horizontal_spacing_widget.dart';
@@ -19,7 +20,10 @@ class ArticleWidget extends StatelessWidget {
       child: Material(
         color: Theme.of(context).cardColor,
         child: InkWell(
-          onTap: () {},
+          onTap: () => Navigator.pushNamed(
+            context,
+            BlogDetailsScreen.routeName,
+          ),
           child: Stack(
             children: [
               Container(
@@ -75,17 +79,15 @@ class ArticleWidget extends StatelessWidget {
                             child: Row(
                               children: [
                                 IconButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        child: const NewsDetailsScreen(),
-                                        inheritTheme: true,
-                                        ctx: context,
-                                      ),
-                                    );
-                                  },
+                                  onPressed: () => Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: const NewsDetailsScreen(),
+                                      inheritTheme: true,
+                                      ctx: context,
+                                    ),
+                                  ),
                                   icon: const Icon(
                                     Icons.link,
                                     color: Colors.blue,
