@@ -4,10 +4,12 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:news_app/constants/styles.dart';
 import 'package:news_app/models/news_model.dart';
 import 'package:news_app/providers/news_provider.dart';
+import 'package:news_app/services/global_methods.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/text_content_widget.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class BlogDetailsScreen extends StatefulWidget {
   static const routeName = '/BlogDetailsScreen';
@@ -78,8 +80,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                   child: FancyShimmerImage(
                     boxFit: BoxFit.fill,
                     errorWidget: Image.asset('assets/images/empty_image.png'),
-                    imageUrl:
-                        currentNews.urlToImage,
+                    imageUrl: currentNews.urlToImage,
                   ),
                 ),
               ),
@@ -91,7 +92,19 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          try {
+                            await Share.share(
+                              currentNews.url,
+                              subject: 'Look what I made!',
+                            );
+                          } catch (error) {
+                            GlobalMethods.errorDialog(
+                              errorMessage: error.toString(),
+                              context: context,
+                            );
+                          }
+                        },
                         child: Card(
                           elevation: 10,
                           shape: const CircleBorder(),
