@@ -214,7 +214,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: ListView.builder(
                             itemCount: snapshot.data!.length,
                             itemBuilder: (ctx, index) => ArticleWidget(
-                              imageUrl: snapshot.data![index].urlToImage,
+                              title: snapshot.data![index].title,
+                              url: snapshot.data![index].url,
+                              urlToImage: snapshot.data![index].urlToImage,
+                              dateToShow: snapshot.data![index].dateToShow,
+                              readingTimeText:
+                                  snapshot.data![index].readingTimeText,
                             ),
                           ),
                         )
@@ -227,8 +232,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             layout: SwiperLayout.STACK,
                             viewportFraction: 0.9,
                             itemCount: 5,
-                            itemBuilder: (ctx, index) =>
-                                const TopTrendingWidget(),
+                            itemBuilder: (ctx, index) => TopTrendingWidget(
+                              url: snapshot.data![index].url,
+                            ),
                           ),
                         );
                 },

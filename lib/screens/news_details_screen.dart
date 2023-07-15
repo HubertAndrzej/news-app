@@ -8,7 +8,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class NewsDetailsScreen extends StatefulWidget {
-  const NewsDetailsScreen({super.key});
+  const NewsDetailsScreen({
+    super.key,
+    required this.url,
+  });
+
+  final String url;
 
   @override
   State<NewsDetailsScreen> createState() => _NewsDetailsScreenState();
@@ -17,8 +22,6 @@ class NewsDetailsScreen extends StatefulWidget {
 class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
   late WebViewController _webViewController;
   double _progress = 0;
-  final _url =
-      'https://techcrunch.com/2022/06/17/marc-lores-food-delivery-startup-wonder-raises-350m-3-5b-valuation/';
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
           elevation: 0,
           centerTitle: true,
           title: Text(
-            'URL',
+            widget.url,
             style: TextStyle(color: color),
           ),
           actions: [
@@ -63,7 +66,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
             ),
             Expanded(
               child: WebView(
-                initialUrl: _url,
+                initialUrl: widget.url,
                 zoomEnabled: true,
                 onProgress: (progress) {
                   setState(
@@ -124,7 +127,7 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
               onTap: () async {
                 try {
                   await Share.share(
-                    _url,
+                    widget.url,
                     subject: 'Look what I made!',
                   );
                 } catch (error) {
@@ -139,8 +142,8 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
             ),
             ListTile(
               onTap: () async {
-                if (!await launchUrl(Uri.parse(_url))) {
-                  throw Exception('Could not launch $_url');
+                if (!await launchUrl(Uri.parse(widget.url))) {
+                  throw Exception('Could not launch ${widget.url}');
                 }
               },
               leading: const Icon(Icons.open_in_browser),

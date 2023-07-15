@@ -11,10 +11,18 @@ import 'package:page_transition/page_transition.dart';
 class ArticleWidget extends StatelessWidget {
   const ArticleWidget({
     super.key,
-    required this.imageUrl,
+    required this.title,
+    required this.url,
+    required this.urlToImage,
+    required this.dateToShow,
+    required this.readingTimeText,
   });
 
-  final String imageUrl;
+  final String title;
+  final String url;
+  final String urlToImage;
+  final String dateToShow;
+  final String readingTimeText;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +67,7 @@ class ArticleWidget extends StatelessWidget {
                               Image.asset('assets/images/empty_image.png'),
                           height: size.height * 0.12,
                           width: size.height * 0.12,
-                          imageUrl: imageUrl),
+                          imageUrl: urlToImage),
                     ),
                     const HorizontalSpacingWidget(width: 10),
                     Expanded(
@@ -68,7 +76,7 @@ class ArticleWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            'title ' * 20,
+                            title,
                             textAlign: TextAlign.justify,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -78,7 +86,7 @@ class ArticleWidget extends StatelessWidget {
                           Align(
                             alignment: Alignment.topRight,
                             child: Text(
-                              '🕒 reading time',
+                              '🕒 $readingTimeText',
                               style: smallTextStyle,
                             ),
                           ),
@@ -90,7 +98,7 @@ class ArticleWidget extends StatelessWidget {
                                     context,
                                     PageTransition(
                                       type: PageTransitionType.rightToLeft,
-                                      child: const NewsDetailsScreen(),
+                                      child: NewsDetailsScreen(url: url),
                                       inheritTheme: true,
                                       ctx: context,
                                     ),
@@ -101,7 +109,7 @@ class ArticleWidget extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  '14-07-2023',
+                                  dateToShow,
                                   maxLines: 1,
                                   style: smallTextStyle,
                                 ),
