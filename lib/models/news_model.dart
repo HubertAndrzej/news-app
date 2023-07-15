@@ -1,3 +1,4 @@
+import 'package:news_app/services/global_methods.dart';
 import 'package:reading_time/reading_time.dart';
 
 class NewsModel {
@@ -31,6 +32,11 @@ class NewsModel {
     String title = json['title'] ?? '';
     String description = json['description'] ?? '';
     String content = json['content'] ?? '';
+    String dateToShow = '';
+    if (json['publishedAt'] != null) {
+      dateToShow = GlobalMethods.formattedDateText(json['publishedAt']);
+    }
+
     return NewsModel(
       newsId: json['source']['id'] ?? '',
       sourceName: json['source']['name'] ?? '',
@@ -40,7 +46,7 @@ class NewsModel {
       url: json['url'] ?? '',
       urlToImage: json['urlToImage'] ?? 'https://picsum.photos/200',
       publishedAt: json['publishedAt'] ?? '',
-      dateToShow: 'dateToShow',
+      dateToShow: dateToShow,
       content: content,
       readingTimeText: readingTime(title + description + content).msg,
     );
