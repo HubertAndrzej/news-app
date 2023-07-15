@@ -1,3 +1,5 @@
+import 'package:reading_time/reading_time.dart';
+
 class NewsModel {
   final String newsId;
   final String sourceName;
@@ -26,18 +28,21 @@ class NewsModel {
   });
 
   factory NewsModel.fromJson(dynamic json) {
+    String title = json['title'] ?? '';
+    String description = json['description'] ?? '';
+    String content = json['content'] ?? '';
     return NewsModel(
       newsId: json['source']['id'] ?? '',
       sourceName: json['source']['name'] ?? '',
       authorName: json['author'] ?? '',
-      title: json['title'] ?? '',
-      description: json['description'] ?? '',
+      title: title,
+      description: description,
       url: json['url'] ?? '',
       urlToImage: json['urlToImage'] ?? 'https://picsum.photos/200',
       publishedAt: json['publishedAt'] ?? '',
       dateToShow: 'dateToShow',
-      content: json['content'] ?? '',
-      readingTimeText: 'readingTimeText',
+      content: content,
+      readingTimeText: readingTime(title + description + content).msg,
     );
   }
 
