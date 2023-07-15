@@ -31,17 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String sortBy = SortByHelper.getValue(SortBy.publishedAt);
 
   @override
-  void didChangeDependencies() {
-    getNewsList();
-    super.didChangeDependencies();
-  }
-
-  Future<List<NewsModel>> getNewsList() async {
-    List<NewsModel> newsList = await NewsApiServices.getAllNews();
-    return newsList;
-  }
-
-  @override
   Widget build(BuildContext context) {
     final Color color = Utils(context: context).getColor;
     final Size size = Utils(context: context).getScreenSize;
@@ -186,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
               FutureBuilder<List<NewsModel>>(
-                future: getNewsList(),
+                future: NewsApiServices.getAllNews(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return newsType == NewsType.allNews
@@ -197,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   } else if (snapshot.hasError) {
                     return Expanded(
                       child: EmptyNewsWidget(
-                        text: 'An error occured ${snapshot.error}',
+                        text: '${snapshot.error}',
                         imagePath: 'assets/images/no_news.png',
                       ),
                     );

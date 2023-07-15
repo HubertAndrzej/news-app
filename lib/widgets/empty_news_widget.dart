@@ -26,13 +26,15 @@ class EmptyNewsWidget extends StatelessWidget {
             padding: const EdgeInsets.all(18),
             child: Image.asset(imagePath),
           ),
-          Text(
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: color,
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
+          Flexible(
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: color,
+                fontSize: 30,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
         ],
