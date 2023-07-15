@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/services/utils.dart';
-import 'package:news_app/widgets/article_widget.dart';
+import 'package:news_app/widgets/empty_news_widget.dart';
 
 class BookmarksScreen extends StatefulWidget {
   const BookmarksScreen({super.key});
@@ -34,7 +34,10 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
       ),
       body: ListView.builder(
         itemCount: 20,
-        itemBuilder: (ctx, index) => const ArticleWidget(),
+        itemBuilder: (ctx, index) => const EmptyNewsWidget(
+          text: 'You didn\'t add anything yet to your bookmarks',
+          imagePath: "assets/images/bookmark.png",
+        ),
       ),
     );
   }

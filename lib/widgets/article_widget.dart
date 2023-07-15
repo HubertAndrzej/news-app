@@ -9,7 +9,12 @@ import 'package:news_app/widgets/vertical_spacing_widget.dart';
 import 'package:page_transition/page_transition.dart';
 
 class ArticleWidget extends StatelessWidget {
-  const ArticleWidget({super.key});
+  const ArticleWidget({
+    super.key,
+    required this.imageUrl,
+  });
+
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +55,11 @@ class ArticleWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: FancyShimmerImage(
                           boxFit: BoxFit.fill,
+                          errorWidget:
+                              Image.asset('assets/images/empty_image.png'),
                           height: size.height * 0.12,
                           width: size.height * 0.12,
-                          imageUrl: 'https://picsum.photos/200'),
+                          imageUrl: imageUrl),
                     ),
                     const HorizontalSpacingWidget(width: 10),
                     Expanded(
