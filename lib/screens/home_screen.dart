@@ -178,10 +178,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
               FutureBuilder<List<NewsModel>>(
-                future: newsProvider.fetchAllNews(
-                  pageIndex: currentPageIndex + 1,
-                  sortBy: sortBy.toCamelCase(),
-                ),
+                future: newsType == NewsType.topTrending
+                    ? newsProvider.fetchTopHeadlines()
+                    : newsProvider.fetchAllNews(
+                        pageIndex: currentPageIndex + 1,
+                        sortBy: sortBy.toCamelCase(),
+                      ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return newsType == NewsType.allNews
@@ -224,8 +226,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             layout: SwiperLayout.STACK,
                             viewportFraction: 0.9,
                             itemCount: 5,
-                            itemBuilder: (ctx, index) => TopTrendingWidget(
-                              url: snapshot.data![index].url,
+                            itemBuilder: (ctx, index) =>
+                                ChangeNotifierProvider.value(
+                              value: snapshot.data![index],
+                              child: const TopTrendingWidget(),
                             ),
                           ),
                         );
