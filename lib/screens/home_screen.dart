@@ -5,9 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/constants/variables.dart';
 import 'package:news_app/models/news_model.dart';
 import 'package:news_app/providers/news_provider.dart';
-import 'package:news_app/providers/news_provider.dart';
 import 'package:news_app/screens/search_screen.dart';
-import 'package:news_app/services/news_api.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/article_widget.dart';
 import 'package:news_app/widgets/drawer_widget.dart';
@@ -206,13 +204,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? Expanded(
                           child: ListView.builder(
                             itemCount: snapshot.data!.length,
-                            itemBuilder: (ctx, index) => ArticleWidget(
-                              title: snapshot.data![index].title,
-                              url: snapshot.data![index].url,
-                              urlToImage: snapshot.data![index].urlToImage,
-                              dateToShow: snapshot.data![index].dateToShow,
-                              readingTimeText:
-                                  snapshot.data![index].readingTimeText,
+                            itemBuilder: (ctx, index) =>
+                                ChangeNotifierProvider.value(
+                              value: snapshot.data![index],
+                              child: const ArticleWidget(),
                             ),
                           ),
                         )
