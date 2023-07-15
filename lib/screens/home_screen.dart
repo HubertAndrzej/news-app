@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:change_case/change_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -177,8 +178,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
               FutureBuilder<List<NewsModel>>(
-                future:
-                    newsProvider.fetchAllNews(pageIndex: currentPageIndex + 1),
+                future: newsProvider.fetchAllNews(
+                  pageIndex: currentPageIndex + 1,
+                  sortBy: sortBy.toCamelCase(),
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return newsType == NewsType.allNews

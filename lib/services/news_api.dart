@@ -6,7 +6,10 @@ import 'package:news_app/constants/api_constants.dart';
 import 'package:news_app/models/news_model.dart';
 
 class NewsApiServices {
-  static Future<List<NewsModel>> getAllNews({required int page}) async {
+  static Future<List<NewsModel>> getAllNews({
+    required int page,
+    required String sortBy,
+  }) async {
     try {
       var uri = Uri.https(
         baseUrl,
@@ -16,6 +19,7 @@ class NewsApiServices {
           'pageSize': '5',
           'page': page.toString(),
           'domains': 'techcrunch.com',
+          'sortBy': sortBy
         },
       );
       var response = await http.get(
