@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:news_app/services/global_methods.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
 import 'package:share_plus/share_plus.dart';
@@ -129,7 +130,10 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                     subject: 'Look what I made!',
                   );
                 } catch (error) {
-                  log('error occured $error' as num);
+                  GlobalMethods.errorDialog(
+                    errorMessage: error.toString(),
+                    context: context,
+                  );
                 }
               },
               leading: const Icon(Icons.share),
@@ -149,7 +153,10 @@ class _NewsDetailsScreenState extends State<NewsDetailsScreen> {
                 try {
                   await _webViewController.reload();
                 } catch (error) {
-                  log('error occured $error' as num);
+                  GlobalMethods.errorDialog(
+                    errorMessage: error.toString(),
+                    context: context,
+                  );
                 } finally {
                   Navigator.pop(context);
                 }
