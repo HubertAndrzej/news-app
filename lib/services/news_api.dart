@@ -6,7 +6,7 @@ import 'package:news_app/constants/api_constants.dart';
 import 'package:news_app/models/news_model.dart';
 
 class NewsApiServices {
-  static Future<List<NewsModel>> getAllNews() async {
+  static Future<List<NewsModel>> getAllNews({required int page}) async {
     try {
       var uri = Uri.https(
         baseUrl,
@@ -14,6 +14,7 @@ class NewsApiServices {
         {
           'q': 'youtube',
           'pageSize': '5',
+          'page': page.toString(),
           'domains': 'techcrunch.com',
         },
       );
