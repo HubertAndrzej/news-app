@@ -52,13 +52,16 @@ class ArticleWidget extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: FancyShimmerImage(
-                          boxFit: BoxFit.fill,
-                          errorWidget:
-                              Image.asset('assets/images/empty_image.png'),
-                          height: size.height * 0.12,
-                          width: size.height * 0.12,
-                          imageUrl: newsModelProvider.urlToImage),
+                      child: Hero(
+                        tag: newsModelProvider.publishedAt,
+                        child: FancyShimmerImage(
+                            boxFit: BoxFit.fill,
+                            errorWidget:
+                                Image.asset('assets/images/empty_image.png'),
+                            height: size.height * 0.12,
+                            width: size.height * 0.12,
+                            imageUrl: newsModelProvider.urlToImage),
+                      ),
                     ),
                     const HorizontalSpacingWidget(width: 10),
                     Expanded(
