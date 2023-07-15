@@ -2,9 +2,12 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:news_app/constants/styles.dart';
+import 'package:news_app/models/news_model.dart';
+import 'package:news_app/providers/news_provider.dart';
 import 'package:news_app/services/utils.dart';
 import 'package:news_app/widgets/text_content_widget.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
+import 'package:provider/provider.dart';
 
 class BlogDetailsScreen extends StatefulWidget {
   static const routeName = '/BlogDetailsScreen';
@@ -18,6 +21,11 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final color = Utils(context: context).getColor;
+    final NewsProvider newsProvider = Provider.of<NewsProvider>(context);
+    final String publishedAt =
+        ModalRoute.of(context)!.settings.arguments as String;
+    final NewsModel currentNews =
+        newsProvider.findByDate(publishedAt: publishedAt);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +34,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
-          'By Author',
+          currentNews.authorName,
           textAlign: TextAlign.center,
           style: TextStyle(color: color),
         ),
@@ -39,7 +47,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Title' * 10,
+                  currentNews.title,
                   textAlign: TextAlign.justify,
                   style: titleTextStyle,
                 ),
@@ -47,12 +55,12 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                 Row(
                   children: [
                     Text(
-                      '20/20/2015',
+                      currentNews.dateToShow,
                       style: smallTextStyle,
                     ),
                     const Spacer(),
                     Text(
-                      'readingTimeText',
+                      currentNews.readingTimeText,
                       style: smallTextStyle,
                     ),
                   ],
@@ -71,7 +79,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                     boxFit: BoxFit.fill,
                     errorWidget: Image.asset('assets/images/empty_image.png'),
                     imageUrl:
-                        'https://techcrunch.com/wp-content/uploads/2022/01/locket-app.jpg?w=1390&crop=1',
+                        currentNews.urlToImage,
                   ),
                 ),
               ),
@@ -131,7 +139,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                 ),
                 const VerticalSpacingWidget(height: 10),
                 TextContentWidget(
-                  label: 'description ' * 12,
+                  label: currentNews.description,
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
                 ),
@@ -147,7 +155,7 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                   height: 10,
                 ),
                 TextContentWidget(
-                  label: 'content ' * 12,
+                  label: currentNews.content,
                   fontSize: 18,
                   fontWeight: FontWeight.normal,
                 ),

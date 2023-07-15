@@ -26,6 +26,7 @@ class ArticleWidget extends StatelessWidget {
           onTap: () => Navigator.pushNamed(
             context,
             BlogDetailsScreen.routeName,
+            arguments: newsModelProvider.publishedAt,
           ),
           child: Stack(
             children: [
