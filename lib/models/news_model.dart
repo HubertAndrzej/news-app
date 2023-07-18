@@ -3,18 +3,6 @@ import 'package:news_app/services/global_methods.dart';
 import 'package:reading_time/reading_time.dart';
 
 class NewsModel with ChangeNotifier {
-  final String newsId;
-  final String sourceName;
-  final String authorName;
-  final String title;
-  final String description;
-  final String url;
-  final String urlToImage;
-  final String publishedAt;
-  final String dateToShow;
-  final String content;
-  final String readingTimeText;
-
   NewsModel({
     required this.newsId,
     required this.sourceName,
@@ -28,6 +16,18 @@ class NewsModel with ChangeNotifier {
     required this.content,
     required this.readingTimeText,
   });
+
+  final String newsId;
+  final String sourceName;
+  final String authorName;
+  final String title;
+  final String description;
+  final String url;
+  final String urlToImage;
+  final String publishedAt;
+  final String dateToShow;
+  final String content;
+  final String readingTimeText;
 
   factory NewsModel.fromJson(dynamic json) {
     String title = json['title'] ?? '';
