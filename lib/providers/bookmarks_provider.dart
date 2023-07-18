@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:news_app/constants/api_constants.dart';
 import 'package:news_app/models/bookmarks_model.dart';
+import 'package:news_app/models/news_model.dart';
 
 class BookmarksProvider with ChangeNotifier {
   List<BookmarksModel> bookmarksList = [];
@@ -12,7 +13,7 @@ class BookmarksProvider with ChangeNotifier {
     return bookmarksList;
   }
 
-  Future<void> addToBookmarks() async {
+  Future<void> addToBookmarks({required NewsModel newsModel}) async {
     try {
       var uri = Uri.https(
         baseUrlFirebase,
@@ -21,9 +22,7 @@ class BookmarksProvider with ChangeNotifier {
       await http.post(
         uri,
         body: json.encode(
-          {
-            'Test': 'JustATest',
-          },
+          newsModel.toJson(),
         ),
       );
     } catch (error) {
