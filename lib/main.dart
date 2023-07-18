@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_app/constants/theme_data.dart';
 import 'package:news_app/firebase_options.dart';
+import 'package:news_app/providers/bookmarks_provider.dart';
 import 'package:news_app/providers/dark_theme_provider.dart';
 import 'package:news_app/providers/news_provider.dart';
 import 'package:news_app/screens/blog_details_screen.dart';
@@ -50,6 +51,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (_) => NewsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => BookmarksProvider(),
         ),
       ],
       child: Consumer<DarkThemeProvider>(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:news_app/constants/styles.dart';
 import 'package:news_app/models/news_model.dart';
+import 'package:news_app/providers/bookmarks_provider.dart';
 import 'package:news_app/providers/news_provider.dart';
 import 'package:news_app/services/global_methods.dart';
 import 'package:news_app/services/utils.dart';
@@ -24,6 +25,8 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
   Widget build(BuildContext context) {
     final color = Utils(context: context).getColor;
     final NewsProvider newsProvider = Provider.of<NewsProvider>(context);
+    final BookmarksProvider bookmarksProvider =
+        Provider.of<BookmarksProvider>(context);
     final String publishedAt =
         ModalRoute.of(context)!.settings.arguments as String;
     final NewsModel currentNews =
@@ -122,7 +125,8 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async =>
+                            await bookmarksProvider.addToBookmarks(),
                         child: Card(
                           elevation: 10,
                           shape: const CircleBorder(),
