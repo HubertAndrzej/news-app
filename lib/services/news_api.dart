@@ -68,4 +68,37 @@ class NewsApiServices {
       throw error.toString();
     }
   }
+
+  static Future<List<NewsModel>> searchNews({
+    required String query,
+  }) async {
+    try {
+      var uri = Uri.https(
+        baseUrl,
+        'v2/everything',
+        {
+          'q': query,
+          'pageSize': '10',
+          'domains': 'techcrunch.com',
+        },
+      );
+      var response = await http.get(
+        uri,
+        headers: {
+          'X-Api-Key': apiKey,
+        },
+      );
+      Map data = jsonDecode(response.body);
+      List newsTempList = [];
+      if (data['code'] != null) {
+        throw HttpException(data['code']);
+      }
+      for (var value in data['articles']) {
+        newsTempList.add(value);
+      }
+      return NewsModel.newsFromSnapshot(newsTempList);
+    } catch (error) {
+      throw error.toString();
+    }
+  }
 }

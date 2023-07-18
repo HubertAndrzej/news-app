@@ -53,6 +53,7 @@ List<DropdownMenuItem<String>> get dropDownItems {
 const List<String> searchKeywords = [
   'Chess',
   'Crypto',
+  'Disney',
   'Flutter',
   'Football',
   'Italy',
@@ -61,4 +62,5 @@ const List<String> searchKeywords = [
   'Poland',
   'Season',
   'Software',
+  'Sport',
 ];
