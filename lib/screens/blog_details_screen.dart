@@ -21,6 +21,8 @@ class BlogDetailsScreen extends StatefulWidget {
 }
 
 class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
+  final bool _isInBookmarks = false;
+
   @override
   Widget build(BuildContext context) {
     final color = Utils(context: context).getColor;
@@ -125,10 +127,15 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () async =>
+                        onTap: () async {
+                          if (!_isInBookmarks) {
                             await bookmarksProvider.addToBookmarks(
-                          newsModel: currentNews,
-                        ),
+                              newsModel: currentNews,
+                            );
+                          } else {
+                            await bookmarksProvider.removeFromBookmarks();
+                          }
+                        },
                         child: Card(
                           elevation: 10,
                           shape: const CircleBorder(),

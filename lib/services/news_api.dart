@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:news_app/constants/api_constants.dart';
+import 'package:news_app/models/bookmarks_model.dart';
 import 'package:news_app/models/news_model.dart';
 
 class NewsApiServices {
@@ -99,6 +100,32 @@ class NewsApiServices {
       return NewsModel.newsFromSnapshot(newsTempList);
     } catch (error) {
       throw error.toString();
+    }
+  }
+
+  static Future<List<BookmarksModel>?> getBookmarks() async {
+    try {
+      var uri = Uri.https(
+        baseUrlFirebase,
+        'bookmarks.json',
+      );
+      var response = await http.get(
+        uri,
+      );
+      Map data = jsonDecode(response.body);
+      List allKeys = [];
+      if (data['code'] != null) {
+        throw HttpException(data['code']);
+      }
+      for (String key in data.keys) {
+        allKeys.add(key);
+      }
+      return BookmarksModel.bookmarksFromSnapshot(
+        data: data,
+        allKeys: allKeys,
+      );
+    } catch (error) {
+      rethrow;
     }
   }
 }
