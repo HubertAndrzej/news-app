@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_app/providers/dark_theme_provider.dart';
 import 'package:news_app/screens/bookmarks_screen.dart';
+import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/widgets/list_tile_widget.dart';
 import 'package:news_app/widgets/vertical_spacing_widget.dart';
 import 'package:page_transition/page_transition.dart';
@@ -53,13 +54,23 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ),
             const VerticalSpacingWidget(height: 20),
             ListTileWidget(
-              function: () {},
+              function: () {
+                Navigator.pushReplacement(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: const HomeScreen(),
+                    inheritTheme: true,
+                    ctx: context,
+                  ),
+                );
+              },
               icon: IconlyBold.home,
               label: "Home",
             ),
             ListTileWidget(
               function: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   PageTransition(
                     type: PageTransitionType.rightToLeft,
