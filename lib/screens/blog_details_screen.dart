@@ -2,6 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:news_app/constants/styles.dart';
+import 'package:news_app/models/bookmarks_model.dart';
 import 'package:news_app/models/news_model.dart';
 import 'package:news_app/providers/bookmarks_provider.dart';
 import 'package:news_app/providers/news_provider.dart';
@@ -21,7 +22,28 @@ class BlogDetailsScreen extends StatefulWidget {
 }
 
 class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
-  final bool _isInBookmarks = false;
+  bool _isInBookmarks = false;
+  String? publishedAt;
+  dynamic currentBookmark;
+
+  @override
+  void didChangeDependencies() {
+    publishedAt = ModalRoute.of(context)!.settings.arguments as String;
+    final List<BookmarksModel> bookmarksList =
+        Provider.of<BookmarksProvider>(context).getBookmarksList;
+    if (bookmarksList.isEmpty) {
+      return;
+    }
+    currentBookmark = bookmarksList
+        .where((element) => element.publishedAt == publishedAt)
+        .toList();
+    if (currentBookmark.isEmpty) {
+      _isInBookmarks = false;
+    } else {
+      _isInBookmarks = true;
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +51,6 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
     final NewsProvider newsProvider = Provider.of<NewsProvider>(context);
     final BookmarksProvider bookmarksProvider =
         Provider.of<BookmarksProvider>(context);
-    final String publishedAt =
-        ModalRoute.of(context)!.settings.arguments as String;
     final NewsModel currentNews =
         newsProvider.findByDate(publishedAt: publishedAt);
 
@@ -128,13 +148,16 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          if (!_isInBookmarks) {
+                          if (_isInBookmarks) {
+                            await bookmarksProvider.removeFromBookmarks(
+                              key: currentBookmark[0].bookmarkKey,
+                            );
+                          } else {
                             await bookmarksProvider.addToBookmarks(
                               newsModel: currentNews,
                             );
-                          } else {
-                            await bookmarksProvider.removeFromBookmarks();
                           }
+                          await bookmarksProvider.fetchBookmarks();
                         },
                         child: Card(
                           elevation: 10,
@@ -142,9 +165,11 @@ class _BlogDetailsScreenState extends State<BlogDetailsScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(8),
                             child: Icon(
-                              IconlyLight.bookmark,
+                              _isInBookmarks
+                                  ? IconlyBold.bookmark
+                                  : IconlyLight.bookmark,
                               size: 28,
-                              color: color,
+                              color: _isInBookmarks ? Colors.green : color,
                             ),
                           ),
                         ),

@@ -16,6 +16,7 @@ class BookmarksProvider with ChangeNotifier {
 
   Future<List<BookmarksModel>> fetchBookmarks() async {
     bookmarksList = await NewsApiServices.getBookmarks() ?? [];
+    notifyListeners();
     return bookmarksList;
   }
 
@@ -31,20 +32,22 @@ class BookmarksProvider with ChangeNotifier {
           newsModel.toJson(),
         ),
       );
+      notifyListeners();
     } catch (error) {
       rethrow;
     }
   }
 
-  Future<void> removeFromBookmarks() async {
+  Future<void> removeFromBookmarks({required String key}) async {
     try {
       var uri = Uri.https(
         baseUrlFirebase,
-        'bookmarks.json',
+        'bookmarks/$key.json',
       );
       await http.delete(
         uri,
       );
+      notifyListeners();
     } catch (error) {
       rethrow;
     }
